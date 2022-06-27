@@ -1,0 +1,67 @@
+definitions:
+  Auth:
+    description: Auth model
+    properties:
+      accessToken:
+        type: string
+        x-go-name: AccessToken
+      expiresIn:
+        format: int64
+        type: integer
+        x-go-name: ExpiresIn
+      refreshToken:
+        type: string
+        x-go-name: RefreshToken
+    type: object
+    x-go-package: auth/models
+  RefreshToken:
+    description: RefreshToken model
+    properties:
+      refreshToken:
+        type: string
+        x-go-name: Token
+    type: object
+    x-go-package: auth/models
+  UUID:
+    description: |-
+      A UUID is a 128 bit (16 byte) Universal Unique IDentifier as defined in RFC
+      4122.
+    items:
+      format: uint8
+      type: integer
+    type: array
+    x-go-package: github.com/google/uuid
+  User:
+    description: User model
+    properties:
+      email:
+        description: User email
+        type: string
+        x-go-name: Email
+      id:
+        $ref: '#/definitions/UUID'
+      name:
+        description: User name
+        minLength: 4
+        type: string
+        x-go-name: Name
+      password:
+        description: User password
+        type: string
+        x-go-name: Password
+    required:
+    - email
+    - password
+    type: object
+    x-go-package: auth/models
+paths:
+  /auth/register:
+    post:
+      description: Returns auth object
+      operationId: register
+      responses:
+        "200":
+          $ref: '#/responses/authResponse'
+      tags:
+      - auth
+swagger: "2.0"

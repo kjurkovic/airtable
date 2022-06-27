@@ -1,0 +1,69 @@
+definitions:
+  UUID:
+    description: |-
+      A UUID is a 128 bit (16 byte) Universal Unique IDentifier as defined in RFC
+      4122.
+    items:
+      format: uint8
+      type: integer
+    type: array
+    x-go-package: github.com/google/uuid
+  Workspace:
+    description: Workspace model
+    properties:
+      id:
+        $ref: '#/definitions/UUID'
+      name:
+        description: Workspace name
+        minLength: 4
+        type: string
+        x-go-name: Name
+    required:
+    - id
+    - name
+    type: object
+    x-go-package: workspace/models
+info: {}
+paths:
+  /workspace:
+    get:
+      description: Returns a list of workspaces
+      operationId: listWorkspaces
+      responses:
+        "200":
+          $ref: '#/responses/workspacesResponse'
+      tags:
+      - workspace
+    post:
+      description: Returns a list of workspaces
+      operationId: listWorkspaces
+      responses:
+        "200":
+          $ref: '#/responses/workspacesResponse'
+      tags:
+      - workspace
+  /workspace/{id}:
+    delete:
+      operationId: deleteWorkspace
+      parameters:
+      - $ref: '#/definitions/UUID'
+        description: The id of the workspace to delete
+        in: path
+        name: id
+        required: true
+        x-go-name: ID
+      responses:
+        "201":
+          $ref: '#/responses/noContent'
+      tags:
+      - workspace
+responses:
+  noContent:
+    description: ""
+  workspacesResponse:
+    description: A list of workspaces
+    schema:
+      items:
+        $ref: '#/definitions/Workspace'
+      type: array
+swagger: "2.0"
