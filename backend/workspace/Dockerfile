@@ -10,5 +10,5 @@ RUN go mod download
 COPY . ./
 
 RUN go build -o ./workspace
-EXPOSE 9091
+EXPOSE 9090
 CMD [ "./workspace" ]

@@ -13,9 +13,6 @@ func (handler *WorkspaceHandler) MiddlewareAuthorization(next http.Handler) http
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		authorizationHeader := r.Header.Get("authorization")
 
-		// TODO: workspace routes not working
-		handler.logger.Print("Hello middleware")
-
 		client := &http.Client{}
 		req, _ := http.NewRequest(http.MethodGet, handler.config.Address, nil)
 		req.Header.Set("Authorization", authorizationHeader)

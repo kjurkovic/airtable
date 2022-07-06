@@ -30,9 +30,6 @@ func Workspaces(l *log.Logger, dao *database.WorkspaceDao, config *config.Author
 	}
 }
 
-//TODO: Remove and replace once oAuth is in place
-var userId = uuid.MustParse("a21ad136-67b7-487d-9c41-c066018212bd")
-
 // HTTP handlers
 
 // swagger:route POST /workspace workspace listWorkspaces
@@ -47,8 +44,9 @@ func (handler *WorkspaceHandler) AddWorkspace(rw http.ResponseWriter, r *http.Re
 	rw.Header().Set("Content-Type", "application/json")
 
 	workspace := r.Context().Value(KeyWorkspace{}).(models.Workspace)
+	user := r.Context().Value(models.UserKey{}).(*models.User)
 	workspace.ID = uuid.New()
-	workspace.UserId = userId
+	workspace.UserId = user.ID
 	fmt.Printf("Received object: %v", workspace)
 	_, err := handler.dao.Insert(&workspace)
 
@@ -72,8 +70,9 @@ func (handler *WorkspaceHandler) UpdateWorkspace(rw http.ResponseWriter, r *http
 	rw.Header().Set("Content-Type", "application/json")
 
 	workspace := r.Context().Value(KeyWorkspace{}).(models.Workspace)
+	user := r.Context().Value(models.UserKey{}).(*models.User)
 
-	response, err := handler.dao.Update(id, userId, &workspace)
+	response, err := handler.dao.Update(id, user.ID, &workspace)
 
 	if err == gorm.ErrRecordNotFound {
 		http.Error(rw, "Workspace Not Found", http.StatusNotFound)
@@ -100,7 +99,8 @@ func (handler *WorkspaceHandler) UpdateWorkspace(rw http.ResponseWriter, r *http
 func (handler *WorkspaceHandler) GetWorkspaces(rw http.ResponseWriter, r *http.Request) {
 	handler.logger.Print("GET Workspaces")
 	rw.Header().Set("Content-Type", "application/json")
-	workspaces, _ := handler.dao.GetAll(userId)
+	user := r.Context().Value(models.UserKey{}).(*models.User)
+	workspaces, _ := handler.dao.GetAll(user.ID)
 	err := workspaces.Serialize(rw)
 
 	if err != nil {
@@ -119,7 +119,8 @@ func (handler *WorkspaceHandler) DeleteWorkspace(rw http.ResponseWriter, r *http
 	handler.logger.Printf("DELETE Workspace#id: %s", id.String())
 	rw.Header().Set("Content-Type", "application/json")
 
-	affectedRows, err := handler.dao.Delete(id, userId)
+	user := r.Context().Value(models.UserKey{}).(*models.User)
+	affectedRows, err := handler.dao.Delete(id, user.ID)
 
 	if err == gorm.ErrRecordNotFound || affectedRows == 0 {
 		http.Error(rw, "Workspace Not Found", http.StatusNotFound)

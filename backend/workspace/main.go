@@ -15,8 +15,8 @@ import (
 	"workspace/database"
 	"workspace/router"
 
-	muxHandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 var (
@@ -41,15 +41,17 @@ func main() {
 	router.Setup(logger, sm, config)
 
 	// CORS
-	corsHandler := muxHandlers.CORS(
-		muxHandlers.AllowedOrigins(
-			config.Server.AllowedOrigins,
-		),
-	)
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+		AllowedHeaders:   []string{"Authorization", "Content-Type", "Access-Control-Allow-Origin", "Origin"},
+		AllowedMethods:   []string{"GET", "UPDATE", "PUT", "POST", "DELETE", "OPTIONS"},
+		Debug:            true,
+	})
 
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", config.Server.Port),
-		Handler:      corsHandler(sm),
+		Handler:      c.Handler(sm),
 		IdleTimeout:  config.Server.Timeout.Idle * time.Second,
 		ReadTimeout:  config.Server.Timeout.Read * time.Second,
 		WriteTimeout: config.Server.Timeout.Write * time.Second,

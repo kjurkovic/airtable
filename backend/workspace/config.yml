@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: 9090
   allowedOrigins: ["*"]
   timeout:
     idle: 120
@@ -18,7 +18,7 @@ database:
     level: 0 # 0: debug, 1: info, 2: warning, 3: error, 4: none, 5: unknown
 
 authorization:
-  address: http://192.168.178.34:9090/user
+  address: http://auth-service:9090/user
 
 notification:
   address: http://notification-service:9090
