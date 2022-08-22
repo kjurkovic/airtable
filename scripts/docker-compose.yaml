@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: airtable-postgres
+    environment:
+      - TZ=Europe/Zagreb
+      - POSTGRES_DB=airtable
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./database:/docker-entrypoint-initdb.d:ro"
+      - airtable-pgdata:/var/lib/postgresql/data
+  # auth-service:
+  #   image: airtable-service-auth
+  #   container_name: airtable-auth-service
+  #   depends_on:
+  #     - "postgres-db"
+  #   ports:
+  #     - "9999:9999"
+  # workspace-service:
+  #   image: airtable-service-workspace
+  #   container_name: airtable-workspace-service
+  #   depends_on:
+  #     - "postgres-db"
+  #   ports:
+  #     - "9998:9998"
+  # notification-service:
+  #   image: airtable-service-notifications
+  #   container_name: airtable-notification-service
+  #   ports:
+  #     - "9997:9997"
+
+volumes:
+  airtable-pgdata:

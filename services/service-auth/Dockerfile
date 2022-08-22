@@ -3,9 +3,11 @@
 FROM golang:1.18
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
+
+COPY . ./
 
 ENV SERVER_PORT $SERVER_PORT
 ENV DATABASE_NAME $DATABASE_NAME
@@ -20,5 +22,7 @@ ENV SERVER_DEBUG_MODE $SERVER_DEBUG_MODE
 ENV SERVER_SYSTEM_UUID $SERVER_SYSTEM_UUID
 
 RUN go build -o ./app
+
 EXPOSE $PORT
+
 CMD [ "./app" ]

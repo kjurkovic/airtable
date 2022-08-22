@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # build services
-make -C ../auth
-make -C ../workspace
-make -C ../notifications
+make -C ..
 
 # run containers
 docker compose up

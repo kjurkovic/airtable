@@ -12,12 +12,10 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/postgres v1.3.8
 	gorm.io/gorm v1.23.8
-	honnef.co/go/tools v0.0.1-2019.2.3
 	xorm.io/xorm v1.3.1
 )
 
 require (
-	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
@@ -33,6 +31,5 @@ require (
 	github.com/leodido/go-urn v1.2.1 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	golang.org/x/tools v0.0.0-20201124115921-2c860bdd6e78 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )

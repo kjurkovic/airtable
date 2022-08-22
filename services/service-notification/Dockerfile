@@ -9,6 +9,6 @@ RUN go mod download
 
 COPY . ./
 
-RUN go build -o ./notifications
-EXPOSE 9090
-CMD [ "./notifications" ]
+RUN go build -o ./app
+EXPOSE 9997
+CMD [ "./app" ]
