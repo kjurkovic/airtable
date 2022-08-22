@@ -3,11 +3,11 @@ package datastore
 import (
 	"fmt"
 
+	"github.com/kjurkovic/airtable/service/auth/config"
 	"github.com/kjurkovic/airtable/service/auth/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"honnef.co/go/tools/config"
 )
 
 type Database struct {

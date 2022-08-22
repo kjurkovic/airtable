@@ -14,7 +14,7 @@ func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) 
 
 	id := uuid.MustParse(mux.Vars(r)["id"])
 
-	user, err := datastore.UserDao.GetById(id)
+	_, err := datastore.UserDao.GetById(id)
 	affected, err := datastore.UserDao.Delete(id)
 
 	if err != nil {

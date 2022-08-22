@@ -18,7 +18,7 @@ func (service *UserService) EditUser(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := datastore.UserDao.GetById(id)
+	_, err = datastore.UserDao.GetById(id)
 
 	if err != nil {
 		models.UserNotFoundError.SendErrorResponse(rw, http.StatusBadRequest)

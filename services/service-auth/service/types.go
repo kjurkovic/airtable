@@ -9,10 +9,10 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
+	"github.com/kjurkovic/airtable/service/auth/config"
 	"github.com/kjurkovic/airtable/service/auth/datastore"
 	"github.com/kjurkovic/airtable/service/auth/models"
 	"github.com/kjurkovic/airtable/service/auth/util"
-	"honnef.co/go/tools/config"
 )
 
 type AuthService struct {

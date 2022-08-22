@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/kjurkovic/airtable/service/auth/config"
 	"github.com/kjurkovic/airtable/service/auth/models"
-	"honnef.co/go/tools/config"
 )
 
 type KeyClaims struct{}
