@@ -6,7 +6,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/kjurkovic/airtable/service/auth/datastore"
+	"github.com/kjurkovic/airtable/service/auth/middleware"
 	"github.com/kjurkovic/airtable/service/auth/models"
+	"github.com/kjurkovic/airtable/service/auth/util"
+	"github.com/kjurkovic/airtable/service/auth/wrappers"
+	audit "gitlab.redox.media/theria/client-audit-service"
 )
 
 func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) {
@@ -14,7 +18,7 @@ func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) 
 
 	id := uuid.MustParse(mux.Vars(r)["id"])
 
-	_, err := datastore.UserDao.GetById(id)
+	user, err := datastore.UserDao.GetById(id)
 	affected, err := datastore.UserDao.Delete(id)
 
 	if err != nil {
@@ -29,4 +33,13 @@ func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) 
 	}
 
 	rw.WriteHeader(http.StatusAccepted)
+
+	auditObj, _ := util.ToJson(user)
+
+	if err != nil {
+		auditObj = id.String()
+	}
+
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
+	wrappers.Audit.SendEvent(claims.UserId, auditObj, audit.DeleteUser)
 }

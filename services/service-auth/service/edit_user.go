@@ -7,7 +7,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/kjurkovic/airtable/service/auth/datastore"
+	"github.com/kjurkovic/airtable/service/auth/middleware"
 	"github.com/kjurkovic/airtable/service/auth/models"
+	"github.com/kjurkovic/airtable/service/auth/util"
+	"github.com/kjurkovic/airtable/service/auth/wrappers"
+	audit "gitlab.redox.media/theria/client-audit-service"
 )
 
 func (service *UserService) EditUser(rw http.ResponseWriter, r *http.Request) {
@@ -18,7 +22,7 @@ func (service *UserService) EditUser(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = datastore.UserDao.GetById(id)
+	user, err := datastore.UserDao.GetById(id)
 
 	if err != nil {
 		models.UserNotFoundError.SendErrorResponse(rw, http.StatusBadRequest)
@@ -40,6 +44,13 @@ func (service *UserService) EditUser(rw http.ResponseWriter, r *http.Request) {
 		response.SendErrorResponse(rw, http.StatusInternalServerError)
 		return
 	}
+
+	auditObj, err := util.ToJson(user)
+	if err != nil {
+		auditObj = id.String()
+	}
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
+	wrappers.Audit.SendEvent(claims.UserId, auditObj, audit.UpdateUser)
 
 	rw.WriteHeader(http.StatusAccepted)
 }
