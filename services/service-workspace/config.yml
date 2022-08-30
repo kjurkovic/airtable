@@ -1,6 +1,9 @@
 server:
-  port: 9998
-  allowedOrigins: ["*"]
+  port: ${SERVER_PORT}
+  secret: ${JWT_SECRET}
+  allowedOrigins: ${SERVER_ALLOWED_ORIGINS}
+  debug: ${SERVER_DEBUG_MODE}
+  systemUuid: ${SERVER_SYSTEM_UUID}
   timeout:
     idle: 120
     read: 1
@@ -8,17 +11,15 @@ server:
     shutdown: 30
 
 database:
-  name: collabtable
-  ip: postgres-db
-  port: 5432
-  schema: workspace
-  username: collabtable
-  password: collabtable
+  name: ${DATABASE_NAME}
+  ip: ${DATABASE_HOST}
+  port: ${DATABASE_PORT}
+  schema: ${DATABASE_SCHEMA}
+  username: ${DATABASE_USER}
+  password: ${DATABASE_PASSWORD}
   logger:
     level: 0 # 0: debug, 1: info, 2: warning, 3: error, 4: none, 5: unknown
 
-authorization:
-  address: http://auth-service:9090/user
-
-notification:
-  address: http://notification-service:9090
+services:
+  audit: ${AUDIT_SERVICE_HOST}
+    

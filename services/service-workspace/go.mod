@@ -1,4 +1,4 @@
-module workspace
+module github.com/kjurkovic/airtable/service/workspace
 
 go 1.18
 
