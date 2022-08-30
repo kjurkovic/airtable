@@ -3,21 +3,17 @@ package config
 import (
 	"time"
 
+	"github.com/google/uuid"
 	"xorm.io/xorm/log"
 )
 
 type Server struct {
-	Port           int      `yaml:"port"`
-	AllowedOrigins []string `yaml:"allowedOrigins"`
-	Timeout        Timeout  `yaml:"timeout"`
-}
-
-type Timeout struct {
-	// seconds
-	Idle     time.Duration `yaml:"idle"`
-	Read     time.Duration `yaml:"read"`
-	Write    time.Duration `yaml:"write"`
-	Shutdown time.Duration `yaml:"shutdown"`
+	Port           int       `yaml:"port"`
+	Secret         string    `yaml:"secret"`
+	AllowedOrigins []string  `yaml:"allowedOrigins"`
+	Debug          bool      `yaml:"debug"`
+	Timeout        Timeout   `yaml:"timeout"`
+	SystemUUID     uuid.UUID `yaml:"systemUuid"`
 }
 
 type Logger struct {
@@ -34,12 +30,20 @@ type Database struct {
 	Logger   Logger `yaml:"logger"`
 }
 
-type Authorization struct {
-	Address string `yaml:"address"`
+type Config struct {
+	Server   Server   `yaml:"server"`
+	Database Database `yaml:"database"`
+	Services Services `yaml:"services"`
 }
 
-type Config struct {
-	Server        Server        `yaml:"server"`
-	Database      Database      `yaml:"database"`
-	Authorization Authorization `yaml:"authorization"`
+type Timeout struct {
+	// seconds
+	Idle     time.Duration `yaml:"idle"`
+	Read     time.Duration `yaml:"read"`
+	Write    time.Duration `yaml:"write"`
+	Shutdown time.Duration `yaml:"shutdown"`
+}
+
+type Services struct {
+	Audit string `yaml:"audit"`
 }
