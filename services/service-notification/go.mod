@@ -1,9 +1,11 @@
-module notifications
+module github.com/kjurkovic/airtable/service/notification
 
 go 1.18
 
 require (
+	github.com/google/uuid v1.0.0
 	github.com/gorilla/mux v1.7.3
+	github.com/joho/godotenv v1.4.0
 	github.com/rs/cors v1.8.2
 	github.com/sendgrid/sendgrid-go v3.11.1+incompatible
 	gopkg.in/yaml.v2 v2.4.0

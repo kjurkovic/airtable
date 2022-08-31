@@ -1,6 +1,9 @@
 server:
-  port: 9997
-  allowedOrigins: ["*"]
+  port: ${SERVER_PORT}
+  secret: ${JWT_SECRET}
+  allowedOrigins: ${SERVER_ALLOWED_ORIGINS}
+  debug: ${SERVER_DEBUG_MODE}
+  systemUuid: ${SERVER_SYSTEM_UUID}
   timeout:
     idle: 120
     read: 1
@@ -8,7 +11,10 @@ server:
     shutdown: 30
 
 mailer:
-  key: #${SENDGRID_API_KEY}
+  key: ${SENDGRID_API_KEY}
   from:
-    email: noreply@redox.media
-    name: Admin
+    email: ${MAILER_EMAIL_FROM}
+    name: ${MAILER_EMAIL_NAME}
+
+services:
+  audit: ${AUDIT_SERVICE_HOST}

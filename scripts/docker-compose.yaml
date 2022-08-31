@@ -13,13 +13,13 @@ services:
     volumes:
       - "./database:/docker-entrypoint-initdb.d:ro"
       - airtable-pgdata:/var/lib/postgresql/data
-  auth-service:
-    image: airtable-service-auth
-    container_name: airtable-auth-service
-    depends_on:
-      - "postgres-db"
-    ports:
-      - "9999:9999"
+  # auth-service:
+  #   image: airtable-service-auth
+  #   container_name: airtable-auth-service
+  #   depends_on:
+  #     - "postgres-db"
+  #   ports:
+  #     - "9999:9999"
   # workspace-service:
   #   image: airtable-service-workspace
   #   container_name: airtable-workspace-service
@@ -32,13 +32,13 @@ services:
   #   container_name: airtable-notification-service
   #   ports:
   #     - "9997:9997"
-  audit-service:
-    image: airtable-service-audit
-    container_name: airtable-audit-service
-    depends_on:
-      - "postgres-db"
-    ports:
-      - "9996:9996"
+  # audit-service:
+  #   image: airtable-service-audit
+  #   container_name: airtable-audit-service
+  #   depends_on:
+  #     - "postgres-db"
+  #   ports:
+  #     - "9996:9996"
 
 volumes:
   airtable-pgdata:
