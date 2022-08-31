@@ -3,13 +3,17 @@ package config
 import (
 	"time"
 
+	"github.com/google/uuid"
 	"xorm.io/xorm/log"
 )
 
 type Server struct {
-	Port           int      `yaml:"port"`
-	AllowedOrigins []string `yaml:"allowedOrigins"`
-	Timeout        Timeout  `yaml:"timeout"`
+	Port           int       `yaml:"port"`
+	Secret         string    `yaml:"secret"`
+	AllowedOrigins []string  `yaml:"allowedOrigins"`
+	Debug          bool      `yaml:"debug"`
+	Timeout        Timeout   `yaml:"timeout"`
+	SystemUUID     uuid.UUID `yaml:"systemUuid"`
 }
 
 type Timeout struct {
@@ -35,6 +39,11 @@ type Mailer struct {
 }
 
 type Config struct {
-	Server Server `yaml:"server"`
-	Mailer Mailer `yaml:"mailer"`
+	Server   Server   `yaml:"server"`
+	Mailer   Mailer   `yaml:"mailer"`
+	Services Services `yaml:"services"`
+}
+
+type Services struct {
+	Audit string `yaml:"audit"`
 }
