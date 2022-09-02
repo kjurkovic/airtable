@@ -45,6 +45,6 @@ func (logger *Logger) Fatal(message error) {
 
 func New() *Logger {
 	return &Logger{
-		Log: log.New(os.Stdout, "[service-audit-api]", log.LstdFlags),
+		Log: log.New(os.Stdout, "[service-data-api]", log.LstdFlags),
 	}
 }
