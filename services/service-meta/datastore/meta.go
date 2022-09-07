@@ -26,7 +26,7 @@ func (repo *MetaRepository) GetAll(id uuid.UUID, page int, size int) (*models.Pa
 		return nil, tx.Error
 	}
 
-	tx = repo.database.Limit(size).Offset((page-1)*size).Where("user_id = ?", id).Find(&data)
+	tx = repo.database.Preload("Fields").Limit(size).Offset((page-1)*size).Where("user_id = ?", id).Find(&data)
 
 	pageable := models.Paginate(&data, count, page, size)
 	return pageable, tx.Error
@@ -34,7 +34,7 @@ func (repo *MetaRepository) GetAll(id uuid.UUID, page int, size int) (*models.Pa
 
 func (repo *MetaRepository) GetOne(id uuid.UUID) (*models.Meta, error) {
 	var model *models.Meta
-	tx := repo.database.First(model, "id = ?", id)
+	tx := repo.database.Preload("Fields").First(&model, "id = ?", id)
 	return model, tx.Error
 }
 

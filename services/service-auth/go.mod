@@ -28,11 +28,8 @@ require (
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
-	github.com/kjurkovic/airtable/clients/service-audit v0.0.0-00010101000000-000000000000 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )
-
-replace github.com/kjurkovic/airtable/clients/service-audit => ../../clients/service-audit

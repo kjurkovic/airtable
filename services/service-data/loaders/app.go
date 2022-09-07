@@ -48,7 +48,7 @@ func (app *App) Initialize() {
 	routes.Initialize()
 
 	go func() {
-		logger.Info("Meta service listening on port %d", config.Server.Port)
+		logger.Info("Data service listening on port %d", config.Server.Port)
 		err := s.ListenAndServe()
 
 		if err != nil {

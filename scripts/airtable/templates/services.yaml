@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.auth.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.auth.type }}
+  ports:
+    - port: {{ .Values.service.auth.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.audit.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.audit.type }}
+  ports:
+    - port: {{ .Values.service.audit.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.meta.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.meta.type }}
+  ports:
+    - port: {{ .Values.service.meta.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.data.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.data.type }}
+  ports:
+    - port: {{ .Values.service.data.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.workspace.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.workspace.type }}
+  ports:
+    - port: {{ .Values.service.workspace.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include ".Values.service.notification.name" . }}
+  labels:
+    {{- include ".Values.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.notification.type }}
+  ports:
+    - port: {{ .Values.service.notification.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include ".Values.selectorLabels" . | nindent 4 }}
+---

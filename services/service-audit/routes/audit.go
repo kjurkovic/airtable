@@ -38,5 +38,5 @@ func (routes *AuditRoutes) Setup(router *mux.Router) {
 
 	get := router.Methods(http.MethodGet).Subrouter()
 	get.Use(middleware.AuthMiddleware)
-	get.HandleFunc(fmt.Sprintf("/user/{id:%s}", userIdRegex), service.GetUserLogs)
+	get.HandleFunc(fmt.Sprintf("/audit/{id:%s}", userIdRegex), service.GetUserLogs)
 }

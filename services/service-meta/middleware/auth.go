@@ -26,7 +26,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 		claims, err := validateToken(authorizationHeader)
 
-		if err != nil || (claims.ProductRole != models.ADMIN && claims.ProductRole != models.MANAGER) {
+		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}

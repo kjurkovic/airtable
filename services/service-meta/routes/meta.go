@@ -27,7 +27,7 @@ func (routes *MetaRoutes) RouteMiddleware() []mux.MiddlewareFunc {
 }
 
 func (routes *MetaRoutes) Setup(router *mux.Router) {
-	routes.Log.Info("Initializing audit log service routes")
+	routes.Log.Info("Initializing meta service routes")
 	service := &service.MetaService{
 		Log:    routes.Log,
 		Config: routes.Config,
@@ -37,9 +37,12 @@ func (routes *MetaRoutes) Setup(router *mux.Router) {
 	post.HandleFunc("", service.Create)
 
 	put := router.Methods(http.MethodPut).Subrouter()
-	put.HandleFunc("/{id:%s}", service.Update)
+	put.HandleFunc(fmt.Sprintf("/{id:%s}", uuidRegex), service.Update)
 
 	get := router.Methods(http.MethodGet).Subrouter()
 	get.HandleFunc(fmt.Sprintf("/{metaId:%s}", uuidRegex), service.GetOne)
 	get.HandleFunc(fmt.Sprintf("/user/{userId:%s}", uuidRegex), service.GetAll)
+
+	delete := router.Methods(http.MethodDelete).Subrouter()
+	delete.HandleFunc(fmt.Sprintf("/{id:%s}", uuidRegex), service.Delete)
 }
