@@ -19,27 +19,24 @@ type DataRoutes struct {
 }
 
 func (routes *DataRoutes) Prefix() string {
-	return "/meta"
+	return "/data"
 }
 
 func (routes *DataRoutes) RouteMiddleware() []mux.MiddlewareFunc {
-	return []mux.MiddlewareFunc{middleware.AuthMiddleware, middleware.JsonResponseMiddleware}
+	return []mux.MiddlewareFunc{middleware.JsonResponseMiddleware}
 }
 
 func (routes *DataRoutes) Setup(router *mux.Router) {
-	routes.Log.Info("Initializing audit log service routes")
-	service := &service.MetaService{
+	routes.Log.Info("Initializing data service routes")
+	service := &service.DataService{
 		Log:    routes.Log,
 		Config: routes.Config,
 	}
 
-	post := router.Methods(http.MethodPost).Subrouter()
-	post.HandleFunc("", service.Create)
-
-	put := router.Methods(http.MethodPut).Subrouter()
-	put.HandleFunc("/{id:%s}", service.Update)
-
 	get := router.Methods(http.MethodGet).Subrouter()
-	get.HandleFunc(fmt.Sprintf("/{metaId:%s}", uuidRegex), service.GetOne)
-	get.HandleFunc(fmt.Sprintf("/user/{userId:%s}", uuidRegex), service.GetAll)
+	get.HandleFunc(fmt.Sprintf("/{metaId:%s}", uuidRegex), service.Get)
+	get.Use(middleware.AuthMiddleware)
+
+	post := router.Methods(http.MethodPost).Subrouter()
+	post.HandleFunc(fmt.Sprintf("/{metaId:%s}", uuidRegex), service.Create)
 }

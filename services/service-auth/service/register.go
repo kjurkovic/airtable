@@ -59,10 +59,10 @@ func (service *AuthService) validateRegisterRequest(rw *http.ResponseWriter, r *
 
 	_, err = datastore.UserDao.GetByEmail(strings.TrimSpace(strings.ToLower(request.Email)))
 
-	if err != gorm.ErrRecordNotFound {
-		models.UserAlreadyExistError.SendErrorResponse(*rw, http.StatusConflict)
-		return nil, fmt.Errorf("user already exists: %s", request.Email)
+	if err == gorm.ErrRecordNotFound {
+		return request, nil
 	}
 
-	return request, nil
+	models.UserAlreadyExistError.SendErrorResponse(*rw, http.StatusConflict)
+	return nil, fmt.Errorf("user already exists: %s", request.Email)
 }

@@ -24,7 +24,7 @@ func (workspaceRoutes *WorkspaceRoutes) Prefix() string {
 }
 
 func (workspaceRoutes *WorkspaceRoutes) RouteMiddleware() []mux.MiddlewareFunc {
-	return []mux.MiddlewareFunc{middleware.AuthMiddleware, middleware.JsonResponseMiddleware}
+	return []mux.MiddlewareFunc{middleware.JsonResponseMiddleware, middleware.AuthMiddleware}
 }
 
 func (workspaceRoutes *WorkspaceRoutes) Setup(router *mux.Router) {

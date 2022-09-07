@@ -14,7 +14,6 @@ import (
 	"github.com/kjurkovic/airtable/service/auth/models"
 	"github.com/kjurkovic/airtable/service/auth/util"
 	"github.com/kjurkovic/airtable/service/auth/wrappers"
-	audit "gitlab.redox.media/theria/client-audit-service"
 )
 
 type AuthService struct {
@@ -58,7 +57,7 @@ func (service *AuthService) generateAuthResponse(user *models.User, rw http.Resp
 	if err != nil {
 		auditObj = user.Id.String()
 	}
-	wrappers.Audit.SendEvent(service.Config.Server.SystemUUID, auditObj, audit.Login)
+	wrappers.Audit.SendEvent(service.Config.Server.SystemUUID, auditObj, wrappers.Login)
 
 	return response
 }

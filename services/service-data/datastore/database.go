@@ -15,8 +15,7 @@ type Database struct {
 }
 
 var (
-	MetaDao  *MetaRepository
-	FieldDao *FieldRepository
+	DataDao *DataRepository
 )
 
 func (database *Database) Connect() {
@@ -37,10 +36,8 @@ func (database *Database) Connect() {
 	}
 
 	db.AutoMigrate(
-		&models.Field{},
-		&models.Meta{},
+		&models.Data{},
 	)
 
-	MetaDao = &MetaRepository{database: db}
-	FieldDao = &FieldRepository{database: db}
+	DataDao = &DataRepository{database: db}
 }

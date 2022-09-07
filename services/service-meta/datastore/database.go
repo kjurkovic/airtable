@@ -36,9 +36,11 @@ func (database *Database) Connect() {
 		panic(err)
 	}
 
+	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";")
+
 	db.AutoMigrate(
-		&models.Field{},
 		&models.Meta{},
+		&models.Field{},
 	)
 
 	MetaDao = &MetaRepository{database: db}

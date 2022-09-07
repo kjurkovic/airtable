@@ -10,7 +10,6 @@ import (
 	"github.com/kjurkovic/airtable/service/auth/models"
 	"github.com/kjurkovic/airtable/service/auth/util"
 	"github.com/kjurkovic/airtable/service/auth/wrappers"
-	audit "gitlab.redox.media/theria/client-audit-service"
 )
 
 func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) {
@@ -41,5 +40,5 @@ func (service *UserService) DeleteUser(rw http.ResponseWriter, r *http.Request) 
 	}
 
 	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
-	wrappers.Audit.SendEvent(claims.UserId, auditObj, audit.DeleteUser)
+	wrappers.Audit.SendEvent(claims.UserId, auditObj, wrappers.DeleteUser)
 }

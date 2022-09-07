@@ -18,7 +18,7 @@ func (service *WorkspaceService) UpdateWorkspace(rw http.ResponseWriter, r *http
 	rw.Header().Set("Content-Type", "application/json")
 
 	workspace := r.Context().Value(middleware.KeyWorkspace{}).(models.Workspace)
-	claims := r.Context().Value(models.Claims{}).(*models.Claims)
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
 
 	response, err := datastore.WorkspaceDao.Update(id, claims.UserId, &workspace)
 

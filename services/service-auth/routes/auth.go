@@ -34,8 +34,4 @@ func (authRoutes *AuthorizationRoutes) Setup(router *mux.Router) {
 	post.HandleFunc("/login", authService.Login)
 	post.HandleFunc("/register", authService.Register)
 	post.HandleFunc("/refresh-token", authService.RefreshToken)
-
-	// TODO post.HandleFunc("/forgot-password", authService.ForgotPassword)
-	// TODO post.HandleFunc("/reset-password", authService.ResetPassword)
-	// TODO:	post.HandleFunc("/verify-email", authService.RefreshToken)
 }

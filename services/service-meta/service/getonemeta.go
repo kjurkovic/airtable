@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/kjurkovic/airtable/service/meta/datastore"
+	"github.com/kjurkovic/airtable/service/meta/middleware"
 	"github.com/kjurkovic/airtable/service/meta/models"
 )
 
@@ -13,7 +14,7 @@ func (service *MetaService) GetOne(rw http.ResponseWriter, r *http.Request) {
 	service.Log.Info("Meta service GET one %s", mux.Vars(r)["metaId"])
 	id := uuid.MustParse(mux.Vars(r)["metaId"])
 
-	claims := r.Context().Value(models.Claims{}).(*models.Claims)
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
 
 	meta, err := datastore.MetaDao.GetOne(id)
 

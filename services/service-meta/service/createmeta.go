@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/kjurkovic/airtable/service/meta/datastore"
+	"github.com/kjurkovic/airtable/service/meta/middleware"
 	"github.com/kjurkovic/airtable/service/meta/models"
 )
 
@@ -18,19 +19,14 @@ func (service *MetaService) Create(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	claims := r.Context().Value(models.Claims{}).(*models.Claims)
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
 	meta.UserId = claims.UserId
 
-	result, err := datastore.MetaDao.Create(meta)
+	_, err = datastore.MetaDao.Create(meta)
 
 	if err != nil {
 		rw.WriteHeader(http.StatusBadRequest)
 		return
-	}
-
-	for _, field := range meta.Fields {
-		field.MetaId = result.Id
-		datastore.FieldDao.Create(&field)
 	}
 
 	rw.WriteHeader(http.StatusCreated)

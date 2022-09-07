@@ -9,28 +9,24 @@ import (
 	"gorm.io/gorm"
 )
 
-type Type string
-
-const (
-	Form Type = "form"
-)
-
 type Field struct {
-	Id        uuid.UUID      `json:"id" gorm:"primaryKey"`
-	MetaId    uuid.UUID      `json:"metaId" gorm:"index"`
-	Type      Type           `json:"type"`
-	CreatedAt time.Time      `json:"createdAt"`
-	UpdatedAt time.Time      `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
+	Id         uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
+	MetaId     uuid.UUID      `json:"metaId" gorm:"index"`
+	Label      string         `json:"label"`
+	Type       string         `json:"type"`
+	Validation string         `json:"validation"`
+	CreatedAt  time.Time      `json:"createdAt"`
+	UpdatedAt  time.Time      `json:"updatedAt"`
+	DeletedAt  gorm.DeletedAt `json:"-" gorm:"index"`
 }
 
 type Meta struct {
-	Id          uuid.UUID      `json:"id" gorm:"primaryKey"`
+	Id          uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
 	UserId      uuid.UUID      `json:"userId" gorm:"index" validate:"required"`
 	WorkspaceId uuid.UUID      `json:"workspaceId" gorm:"index" validate:"required"`
-	Fields      []Field        `json:"fields" gorm:"index" validate:"required"`
+	Fields      []Field        `json:"fields" validate:"required"`
 	Name        string         `json:"name" validate:"required"`
-	Public      bool           `json:"is_public" gorm:"index"`
+	Public      bool           `json:"isPublic" gorm:"index"`
 	CreatedAt   time.Time      `json:"createdAt"`
 	UpdatedAt   time.Time      `json:"updatedAt"`
 	DeletedAt   gorm.DeletedAt `json:"-" gorm:"index"`

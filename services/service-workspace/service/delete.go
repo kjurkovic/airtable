@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/kjurkovic/airtable/service/workspace/datastore"
+	"github.com/kjurkovic/airtable/service/workspace/middleware"
 	"github.com/kjurkovic/airtable/service/workspace/models"
 
 	"github.com/google/uuid"
@@ -16,7 +17,7 @@ func (service *WorkspaceService) DeleteWorkspace(rw http.ResponseWriter, r *http
 	service.Log.Info("DELETE Workspace#id: %s", id.String())
 	rw.Header().Set("Content-Type", "application/json")
 
-	claims := r.Context().Value(models.Claims{}).(*models.Claims)
+	claims := r.Context().Value(middleware.KeyClaims{}).(*models.Claims)
 	affectedRows, err := datastore.WorkspaceDao.Delete(id, claims.UserId)
 
 	if err == gorm.ErrRecordNotFound || affectedRows == 0 {

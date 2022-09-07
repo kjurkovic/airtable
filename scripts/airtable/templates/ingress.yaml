@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: load-balancer
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    {{- if .Values.ingress.tlsEnabled }}
+    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "2048m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "2048m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "360"
+    {{- if .Values.ingress.whitelistEnabled }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.whitelist }}
+    {{- end }}
+spec:
+  {{ if .Values.ingress.tlsEnabled }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: letsencrypt-cluster-issuer-secret
+  {{ end }}
+  rules:
+    {{ if .Values.ingress.hostEnabled }}
+    - host: {{ .Values.ingress.host  }}
+      http:
+    {{ else }}
+    - http:
+        {{ end }}
+        paths:
+          - path: /(auth|user)(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 80
+          - path: /audit(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: audit-service
+                port:
+                  number: 80
+          - path: /workspace(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: workspace-service
+                port:
+                  number: 80
+          - path: /meta(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: meta-service
+                port:
+                  number: 80
+          - path: /data(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: data-service
+                port:
+                  number: 80
+          

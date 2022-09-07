@@ -16,6 +16,8 @@ services:
   auth-service:
     image: airtable-service-auth
     container_name: airtable-auth-service
+    env_file:
+      - ../services/service-auth/.env
     depends_on:
       - "postgres-db"
     ports:
@@ -23,6 +25,8 @@ services:
   workspace-service:
     image: airtable-service-workspace
     container_name: airtable-workspace-service
+    env_file:
+      - ../services/service-workspace/.env
     depends_on:
       - "postgres-db"
     ports:
@@ -30,11 +34,15 @@ services:
   notification-service:
     image: airtable-service-notifications
     container_name: airtable-notification-service
+    env_file:
+      - ../services/service-notification/.env
     ports:
       - "9997:9997"
   audit-service:
     image: airtable-service-audit
     container_name: airtable-audit-service
+    env_file:
+      - ../services/service-audit/.env
     depends_on:
       - "postgres-db"
     ports:
@@ -42,6 +50,8 @@ services:
   meta-service:
     image: airtable-service-meta
     container_name: airtable-meta-service
+    env_file:
+      - ../services/service-meta/.env
     depends_on:
       - "postgres-db"
     ports:
@@ -49,6 +59,8 @@ services:
   data-service:
     image: airtable-service-data
     container_name: airtable-data-service
+    env_file:
+      - ../services/service-data/.env
     depends_on:
       - "postgres-db"
     ports:
