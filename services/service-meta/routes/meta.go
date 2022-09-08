@@ -23,7 +23,7 @@ func (routes *MetaRoutes) Prefix() string {
 }
 
 func (routes *MetaRoutes) RouteMiddleware() []mux.MiddlewareFunc {
-	return []mux.MiddlewareFunc{middleware.AuthMiddleware, middleware.JsonResponseMiddleware}
+	return []mux.MiddlewareFunc{middleware.JsonResponseMiddleware}
 }
 
 func (routes *MetaRoutes) Setup(router *mux.Router) {
@@ -35,14 +35,20 @@ func (routes *MetaRoutes) Setup(router *mux.Router) {
 
 	post := router.Methods(http.MethodPost).Subrouter()
 	post.HandleFunc("", service.Create)
+	post.Use(middleware.AuthMiddleware)
 
 	put := router.Methods(http.MethodPut).Subrouter()
 	put.HandleFunc(fmt.Sprintf("/{id:%s}", uuidRegex), service.Update)
+	put.Use(middleware.AuthMiddleware)
+
+	protectedGet := router.Methods(http.MethodGet).Subrouter()
+	protectedGet.HandleFunc(fmt.Sprintf("/user/{userId:%s}", uuidRegex), service.GetAll)
+	protectedGet.Use(middleware.AuthMiddleware)
 
 	get := router.Methods(http.MethodGet).Subrouter()
 	get.HandleFunc(fmt.Sprintf("/{metaId:%s}", uuidRegex), service.GetOne)
-	get.HandleFunc(fmt.Sprintf("/user/{userId:%s}", uuidRegex), service.GetAll)
 
 	delete := router.Methods(http.MethodDelete).Subrouter()
 	delete.HandleFunc(fmt.Sprintf("/{id:%s}", uuidRegex), service.Delete)
+	delete.Use(middleware.AuthMiddleware)
 }

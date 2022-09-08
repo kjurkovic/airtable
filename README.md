@@ -1,38 +1,26 @@
-# Airtable
+# RAZVOJ WEB APLIKACIJE ZA UPRAVLJANJE KORISNIČKI DEFINIRANIM RELACIJSKIM PODACIMA
 
-## Opis
+Završni rad
 
-Alat sluzi za kreiranje pregleda podataka prema korisnicki definiranom modelu. U nastavku su opisane funkcionalnosti implementirane na backend dijelu kroz Go programski jezik.
+Autor: Kristijan Jurković
 
-## Servisi
+Mentor: doc. dr. sc. Nikola Tanković
 
-Backend aplikacija se sastoji od 5 zasebnih servisa:
-- Auth
-- Workspace
-- Table
-- Share
-- Notification
-Servisi su kreirani kao Docker image te deployani u K8s cluster. Pristup servisima kontrolira se putem NGINX load balancera koji usmjerava promet prema path endpoint pravilima na određeni servis.
+Sveučilište Jurja Dobrile u Puli, Tehnički fakultet
 
-Auth servis služi za registraciju i login korisnika te sve popratne servise za resetiranje lozinke i dohvat korisničkih podataka.
 
-Workspace servis se sastoji od CRUD operacija za workspace objekt.
-Table servis se sastoji od CRUD operacija za table objekt te je povezan na parent resurs - u ovom slučaju workspace (1..N). Table servis je odgovoran za spremanje i vraćanje dinamicki generiranih struktura. Strukture se spremaju u JSON formatu u bazu podataka.
+## Sažetak
 
-Share servis služi za pohranu viewova odnosno resursa (tablica) koje su označene kao public te su dostupne putem share linka korisnicima koji ne moraju nužno biti registrirani.
+Razvoj softverskih rješenja se oslanja na dokumentiranju i digitalizaciji postojećih poslovnih procesa. Formulari korišteni u poslovnim procesima modeliraju se prenošenjem postojećih atributa formulara u relacijske baze podataka. Svaka izmjena rješenja zbog izmjene poslovnih procesa mora osigurati konzistentnost i sigurnost postojećih podataka, te zahtjeva određeno vremensko razdoblje kako bi se novi poslovni procesi implementirali.
+Jedan od mogućih rješenja su dinamički modeli koji prebacuju modeliranje procesa na krajnjeg korisnika te se programsko rješenje brine o konzistenciji podataka vezanih za definiciju modela (meta model). Nisu potrebne migracije već jednostavno nova definicija modela koja će opisati novi odnosno unaprijeđeni poslovni proces. Nastavno na definiciju modela, prikazan je postupak kreiranja servisa za meta modeliranje i unos podataka pomoću Helm rješenja za menadžment Kubernetes klastera koji su horizontalno skalabilni.
 
-Notification servis služi za slanje email obavijesti korisnicima te je implementiran na način da se koristi SendGrid API za slanje emailova.
+## Funkcionalnosti
 
-## Arhitektura K8s Clustera
+* Autorizirani i neautorizirani korisnici
+* Autorizirani korisnici:
+  * Kreiranje i grupiranje meta modela po radnim okruženjima 
+  * Pregled podataka za određeni meta model
+* Neautorizirani korisnici:
+  * Unos podataka za određeni meta model
 
-Arhitektura i poveznice između servisa i klijenta su prikazane na slici 1.
-
-<img src="./components.png" width=700 />
-
-[Slika 1.](components.png)
-  
-## E-R diagram
-
-Relacije u bazi podataka nisu izvedene pomoću stranih ključeva obzirom da je svaki od resursa u bazi podataka u zasebnom mikroservisu koji komunicira jedino sa svojom instancom baze podataka. Međutim arhitektura i logika aplikacije zadovoljava sljedeći E-R diagram:
-
-<img src="./e-r.png" width=700 />
+Dokumentacija: [Priložena dokumentacija završnog rada](zavrsni_rad.pdf)
