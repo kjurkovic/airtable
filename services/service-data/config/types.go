@@ -33,6 +33,7 @@ type Database struct {
 type Config struct {
 	Server   Server   `yaml:"server"`
 	Database Database `yaml:"database"`
+	Services Services `yaml:"services"`
 }
 
 type Timeout struct {
@@ -41,4 +42,8 @@ type Timeout struct {
 	Read     time.Duration `yaml:"read"`
 	Write    time.Duration `yaml:"write"`
 	Shutdown time.Duration `yaml:"shutdown"`
+}
+
+type Services struct {
+	Meta string `yaml:"meta"`
 }
