@@ -1,7 +1,7 @@
 import { Auth } from "./auth"
-// import { User } from "./user"
+import { Workspace } from "./workspace"
 
 export const Api = {
   auth: Auth,
-  // user: User,
+  workspace: Workspace,
 }

@@ -10,5 +10,5 @@ dependencies:
   - name: postgresql
     version: 11.8.1
     repository: https://charts.bitnami.com/bitnami
-    alias: airtable-db
-    condition: airtable-db.enabled
+    alias: airtabledb
+    condition: airtabledb.enabled

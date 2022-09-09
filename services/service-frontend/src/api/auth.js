@@ -1,6 +1,6 @@
 import { unauthorizedClient} from './client';
 import { setAuthTokens } from '../storage/localstorage';
-import { API_FORGOT_PASSWORD, API_LOGIN, API_REGISTER } from './routes';
+import { API_LOGIN, API_REGISTER } from './routes';
 
 export const Auth = {
   login: (email, password) => {
@@ -25,13 +25,6 @@ export const Auth = {
     }).then((response) => {
       setAuthTokens(response.data.accessToken, response.data.refreshToken);
       return response;
-    });
-  },
-  forgotPassword: (email) => {
-    return unauthorizedClient.post(API_FORGOT_PASSWORD, {
-      email:email,
-    }, {
-      validateStatus: (status) => status === 204,
     });
   }
 };
