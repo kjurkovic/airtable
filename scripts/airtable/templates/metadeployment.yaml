@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meta
+  labels:
+    name: meta
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: meta
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        name: meta
+    spec:
+      serviceAccountName: {{ include "airtable.serviceAccountName" . }}
+      containers:
+        - name: meta          
+          image: "{{ .Values.meta.image }}:{{ .Values.meta.version }}"
+          imagePullPolicy: {{ .Values.meta.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+          env:
+            - name: SERVER_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: meta
+            - name: DATABASE_HOST
+              value: airtable-airtabledb
+            - name: DATABASE_SCHEMA
+              value: meta
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: database
+                  key: postgresql-name
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: airtable-airtabledb
+                  key: postgres-password
+            - name: DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: db
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database
+                  key: postgresql-username
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: value
+            - name: SERVER_ALLOWED_ORIGINS
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: allowedOrigins
+            - name: SERVER_DEBUG_MODE
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: debug
+            - name: SERVER_SYSTEM_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: system-uuid
+                  key: value
+            - name: AUDIT_SERVICE_HOST
+              value: http://audit-service
+          ports:
+            - name: meta-http
+              containerPort: 9995
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: meta-http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: meta-http
+
+      

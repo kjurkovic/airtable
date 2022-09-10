@@ -20,7 +20,6 @@ const Login = function() {
       .execute(email, password)
       .then( _ => navigate('/'))
       .catch( e => {
-        console.log(e)
         switch (e.code) {
           case errors.INVALID_EMAIL:
             setEmailError(true)
@@ -42,15 +41,15 @@ const Login = function() {
         <div className="form-floating">
           <input type="email" className="form-control" id="floatingInput" value={email} onChange={ e => setEmail(e.target.value)} />
           <label htmlFor="floatingInput">Email address</label>
-          { emailError ? <p className="">Email is required</p> : <></>}
+          { emailError ? <p className="text-danger">Email is required</p> : <></>}
         </div>
         <div className="form-floating mt-2">
           <input type="password" className="form-control" id="floatingPassword" value={password} onChange={ e => setPassword(e.target.value)} />
           <label htmlFor="floatingPassword">Password</label>
-          { passwordError ? <p className="">Password is required</p> : <></>}
+          { passwordError ? <p className="text-danger">Password is required</p> : <></>}
         </div>
         <button className="w-100 btn btn-lg btn-primary mt-5" type="submit" onClick={ e => handleLoginSubmit(e)}>Sign in</button>
-        { emptyError ? <p className="">All fields are required</p> : <></>}
+        { emptyError ? <p className="text-danger">All fields are required</p> : <></>}
       </form>
 
       <p className="mt-3 text-center">Don't have an account? <a href="/register" className="text-decoration-underline">Register.</a></p>

@@ -22,6 +22,7 @@ func (r *Routes) Initialize() {
 	r.Logger.Info("Initializing service routes")
 
 	routes := []IRoutes{
+		&HealthCheck{Log: r.Logger, Config: r.Config},
 		&DataRoutes{Log: r.Logger, Config: r.Config},
 	}
 

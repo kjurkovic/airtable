@@ -1,0 +1,677 @@
+{
+	"info": {
+		"_postman_id": "168050ad-2e46-4eb6-a15a-23092b7dd86d",
+		"name": "CollabTable",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3446991"
+	},
+	"item": [
+		{
+			"name": "Workspace",
+			"item": [
+				{
+					"name": "Get Workspaces",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{workspacePort}}/workspace",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{workspacePort}}",
+							"path": [
+								"workspace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create workspace",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Workspace name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{workspacePort}}/workspace",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{workspacePort}}",
+							"path": [
+								"workspace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete workspace",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{workspacePort}}/workspace/66289382-2040-4df3-bf42-850adb45b93b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{workspacePort}}",
+							"path": [
+								"workspace",
+								"66289382-2040-4df3-bf42-850adb45b93b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update workspace",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test workspace 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{workspacePort}}/workspace/66289382-2040-4df3-bf42-850adb45b93b",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{workspacePort}}",
+							"path": [
+								"workspace",
+								"66289382-2040-4df3-bf42-850adb45b93b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"",
+											"if (pm.response.code === 200) {",
+											"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.environment.set(\"refreshToken\", jsonData.refreshToken);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Kristijan\",\n    \"lastName\": \"Jurkovic\",\n    \"email\": \"kjurkovic85@gmail.com\",\n    \"password\": \"Password1.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}:{{authPort}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"port": "{{authPort}}",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"",
+											"if (pm.response.code === 200) {",
+											"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.environment.set(\"refreshToken\", jsonData.refreshToken);",
+											"}",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"kjurkovic85@gmail.com\",\n    \"password\": \"Password1.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}:{{authPort}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"port": "{{authPort}}",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"",
+											"if (pm.response.code === 200) {",
+											"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.environment.set(\"refreshToken\", jsonData.refreshToken);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}:{{authPort}}/auth/refresh-token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"port": "{{authPort}}",
+									"path": [
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Get users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}:{{authPort}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"port": "{{authPort}}",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}:{{authPort}}/users/a6c3622a-2a28-481b-840e-77a3281cb4b3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"port": "{{authPort}}",
+									"path": [
+										"users",
+										"a6c3622a-2a28-481b-840e-77a3281cb4b3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Audit",
+			"item": [
+				{
+					"name": "Write log",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"85c85f42-df25-48b1-9a46-34de78b00c79\",\n    \"type\": \"REGISTRATION\",\n    \"obj\": \"{\\\"firstName\\\": \\\"Kristijan\\\", \\\"lastName\\\": \\\"Jurkovic\\\",\\\"email\\\": \\\"kjurkovic85+14@gmail.com\\\"}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{auditPort}}/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{auditPort}}",
+							"path": [
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User logs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{auditPort}}/audit/a6c3622a-2a28-481b-840e-77a3281cb4b3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{auditPort}}",
+							"path": [
+								"audit",
+								"a6c3622a-2a28-481b-840e-77a3281cb4b3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Send",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\":\"Kristijan\",\n    \"email\":\"kjurkovic85@gmail.com\",\n    \"subject\": \"Test subject\",\n    \"text\": \"Email poruka\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{notificationPort}}/notification",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{notificationPort}}",
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meta",
+			"item": [
+				{
+					"name": "Create meta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"workspaceId\": \"9e7433cc-36cb-4fb2-8e5e-369492d48645\",\n    \"fields\": [\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"ime\"\n        }\n    ],\n    \"isPublic\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{metaPort}}/meta",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{metaPort}}",
+							"path": [
+								"meta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User meta models",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{metaPort}}/meta/user/733c4cfb-c122-4116-8bf6-d2fb78f8d9ed",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{metaPort}}",
+							"path": [
+								"meta",
+								"user",
+								"733c4cfb-c122-4116-8bf6-d2fb78f8d9ed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Meta model by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{metaPort}}/meta/385019ed-e933-4f59-bec2-03af80229ae1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{metaPort}}",
+							"path": [
+								"meta",
+								"385019ed-e933-4f59-bec2-03af80229ae1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data",
+			"item": [
+				{
+					"name": "Data for metaId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}:{{dataPort}}/data/385019ed-e933-4f59-bec2-03af80229ae1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{dataPort}}",
+							"path": [
+								"data",
+								"385019ed-e933-4f59-bec2-03af80229ae1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add data for meta",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": {\n        \"ime\": \"Kristijan1\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}:{{dataPort}}/data/385019ed-e933-4f59-bec2-03af80229ae1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{dataPort}}",
+							"path": [
+								"data",
+								"385019ed-e933-4f59-bec2-03af80229ae1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

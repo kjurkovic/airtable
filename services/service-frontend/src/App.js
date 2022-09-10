@@ -5,6 +5,10 @@ import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import Workspace from "./pages/workspace";
 import NoMatch from "./pages/nomatch";
+import CreateWorkspace from "./pages/createworkspace";
+import WorkspaceDetails from "./pages/workspacedetails";
+import DataForm from "./pages/data";
+import CreateMeta from "./pages/createmeta";
 
 function App() {
   return (
@@ -15,9 +19,14 @@ function App() {
         </Protected>
       }>
         <Route index element={<Workspace />} />
+        <Route path="/workspace/add" element={<CreateWorkspace />} />
+        <Route path="/workspace/edit/:id" element={<CreateWorkspace />} />
+        <Route path="/workspace/:id" element={<WorkspaceDetails />} />
+        <Route path="/workspace/:id/add" element={<CreateMeta />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/data/:id" element={<DataForm />} />
       <Route path="*" element={<NoMatch />} />
     </Routes>    
   );

@@ -24,7 +24,7 @@ authClient.interceptors.request.use((request) => {
 const refreshTokenRetrier = failedRequest => unauthClient.post(
     `${config.baseUrl}${API_REFRESH_TOKEN}`, { token: getRefreshToken() }, { validateStatus: (status) => status === 200 }
   ).then(tokenRefreshResponse => {
-    setAuthTokens(tokenRefreshResponse.data.access_token, tokenRefreshResponse.data.refresh_token)
+    setAuthTokens(tokenRefreshResponse.data.accessToken, tokenRefreshResponse.data.refreshToken)
     failedRequest.response.config.headers['Authorization'] = `Bearer ${tokenRefreshResponse.data.access_token}`;
     return Promise.resolve();
   }).catch((err) => {

@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification
+  labels:
+    name: notification
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: notification
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        name: notification
+    spec:
+      serviceAccountName: {{ include "airtable.serviceAccountName" . }}
+      containers:
+        - name: notification          
+          image: "{{ .Values.notification.image }}:{{ .Values.notification.version }}"
+          imagePullPolicy: {{ .Values.notification.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+          env:
+            - name: SERVER_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: notification
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: value
+            - name: SERVER_ALLOWED_ORIGINS
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: allowedOrigins
+            - name: SERVER_DEBUG_MODE
+              valueFrom:
+                secretKeyRef:
+                  name: containers
+                  key: debug
+            - name: SERVER_SYSTEM_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: system-uuid
+                  key: value
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-key
+                  key: key
+            - name: MAILER_EMAIL_FROM
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-key
+                  key: from
+            - name: MAILER_EMAIL_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-key
+                  key: name
+            - name: AUDIT_SERVICE_HOST
+              value: http://audit-service
+          ports:
+            - name: notif-http
+              containerPort: 9997
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: notif-http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: notif-http
+
+      

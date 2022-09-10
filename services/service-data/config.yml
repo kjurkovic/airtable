@@ -21,4 +21,4 @@ database:
     level: 0 # 0: debug, 1: info, 2: warning, 3: error, 4: none, 5: unknown
     
 services:
-  meta: ${SERVICE_META}
+  meta: ${META_SERVICE_HOST}
