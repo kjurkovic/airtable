@@ -46,6 +46,11 @@ data:
   image: airtable-service-data
   pullPolicy: Never
   version: latest
+  
+frontend:
+  image: airtable-service-frontend
+  pullPolicy: Never
+  version: latest
 
 resources:
   requests:

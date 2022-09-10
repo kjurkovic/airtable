@@ -43,6 +43,7 @@ func (routes *MetaRoutes) Setup(router *mux.Router) {
 
 	protectedGet := router.Methods(http.MethodGet).Subrouter()
 	protectedGet.HandleFunc(fmt.Sprintf("/user/{userId:%s}", uuidRegex), service.GetAll)
+	protectedGet.HandleFunc(fmt.Sprintf("/work/{id:%s}", uuidRegex), service.GetAllWorkspace)
 	protectedGet.Use(middleware.AuthMiddleware)
 
 	get := router.Methods(http.MethodGet).Subrouter()

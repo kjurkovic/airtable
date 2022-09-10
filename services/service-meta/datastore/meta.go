@@ -15,6 +15,23 @@ func (repo *MetaRepository) Create(meta *models.Meta) (*models.Meta, error) {
 	return meta, tx.Error
 }
 
+func (repo *MetaRepository) GetAllWorkspace(id uuid.UUID, workspaceId uuid.UUID, page int, size int) (*models.Pageable[models.Meta], error) {
+	var data []models.Meta
+	var count int64
+	var tx *gorm.DB
+
+	tx = repo.database.Model(&models.Meta{}).Where("user_id = ? AND workspace_id = ?", id, workspaceId).Count(&count)
+
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	tx = repo.database.Preload("Fields").Limit(size).Offset((page-1)*size).Where("user_id = ? AND workspace_id = ?", id, workspaceId).Find(&data)
+
+	pageable := models.Paginate(&data, count, page, size)
+	return pageable, tx.Error
+}
+
 func (repo *MetaRepository) GetAll(id uuid.UUID, page int, size int) (*models.Pageable[models.Meta], error) {
 	var data []models.Meta
 	var count int64
@@ -45,10 +62,10 @@ func (repo *MetaRepository) Update(meta models.Meta) error {
 
 func (repo *MetaRepository) Delete(id uuid.UUID, userId uuid.UUID) error {
 	return repo.database.Transaction(func(tx *gorm.DB) error {
-		if txMeta := repo.database.Where("id = ? AND userId = ?", id, userId).Delete(&models.Meta{}); txMeta.Error != nil {
+		if txMeta := repo.database.Where("id = ? AND user_id = ?", id, userId).Delete(&models.Meta{}); txMeta.Error != nil {
 			return txMeta.Error
 		}
-		if txFields := repo.database.Where("metaId = ? ", id).Delete(&models.Field{}); txFields.Error != nil {
+		if txFields := repo.database.Where("meta_id = ? ", id).Delete(&models.Field{}); txFields.Error != nil {
 			return txFields.Error
 		}
 		return nil

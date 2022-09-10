@@ -5,3 +5,4 @@ build:
 	make -C ./services/service-audit build-local-image
 	make -C ./services/service-meta build-local-image
 	make -C ./services/service-data build-local-image
+	make -C ./services/service-frontend build-local-image

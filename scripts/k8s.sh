@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make -C ..
+# make -C ..
 
 cd airtable
 

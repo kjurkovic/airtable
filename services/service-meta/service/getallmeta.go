@@ -10,7 +10,7 @@ import (
 )
 
 func (service *MetaService) GetAll(rw http.ResponseWriter, r *http.Request) {
-	service.Log.Info("Meta service GET all %s", mux.Vars(r)["id"])
+	service.Log.Info("Meta service GET all %s", mux.Vars(r)["userId"])
 	id := uuid.MustParse(mux.Vars(r)["userId"])
 
 	page, pageSize := util.GetPaginationParams(r)
