@@ -25,12 +25,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}:{{workspacePort}}/workspace",
+							"raw": "{{baseUrl}}/api/workspace",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{workspacePort}}",
 							"path": [
+								"api",
 								"workspace"
 							]
 						}
@@ -54,7 +54,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Workspace name\"\n}",
+							"raw": "{\n    \"name\": \"Business\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -62,12 +62,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{workspacePort}}/workspace",
+							"raw": "{{baseUrl}}/api/workspace",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{workspacePort}}",
 							"path": [
+								"api",
 								"workspace"
 							]
 						}
@@ -90,14 +90,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}:{{workspacePort}}/workspace/66289382-2040-4df3-bf42-850adb45b93b",
+							"raw": "{{baseUrl}}/api/workspace/10e8940f-ff10-4081-823a-4aea633b1ae8",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{workspacePort}}",
 							"path": [
+								"api",
 								"workspace",
-								"66289382-2040-4df3-bf42-850adb45b93b"
+								"10e8940f-ff10-4081-823a-4aea633b1ae8"
 							]
 						}
 					},
@@ -128,14 +128,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{workspacePort}}/workspace/66289382-2040-4df3-bf42-850adb45b93b",
+							"raw": "{{baseUrl}}/api/workspace/51a4a359-ff5e-45e6-9333-27ef594f594f",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{workspacePort}}",
 							"path": [
+								"api",
 								"workspace",
-								"66289382-2040-4df3-bf42-850adb45b93b"
+								"51a4a359-ff5e-45e6-9333-27ef594f594f"
 							]
 						}
 					},
@@ -174,7 +174,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"firstName\": \"Kristijan\",\n    \"lastName\": \"Jurkovic\",\n    \"email\": \"kjurkovic85@gmail.com\",\n    \"password\": \"Password1.\"\n}",
+									"raw": "{\n    \"firstName\": \"Kristijan\",\n    \"lastName\": \"Jurkovic\",\n    \"email\": \"kjurkovic85+12@gmail.com\",\n    \"password\": \"Password1q3131313123.\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -182,12 +182,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}:{{authPort}}/auth/register",
+									"raw": "{{baseUrl}}/api/auth/register",
 									"host": [
 										"{{baseUrl}}"
 									],
-									"port": "{{authPort}}",
 									"path": [
+										"api",
 										"auth",
 										"register"
 									]
@@ -221,7 +221,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"kjurkovic85@gmail.com\",\n    \"password\": \"Password1.\"\n}",
+									"raw": "{\n    \"email\": \"kjurkovic85+1@gmail.com\",\n    \"password\": \"Password1q3131313123.\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -229,12 +229,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}:{{authPort}}/auth/login",
+									"raw": "{{baseUrl}}/api/auth/login",
 									"host": [
 										"{{baseUrl}}"
 									],
-									"port": "{{authPort}}",
 									"path": [
+										"api",
 										"auth",
 										"login"
 									]
@@ -267,7 +267,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}",
+									"raw": "{\n    \"token\": \"{{refreshToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -275,12 +275,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}:{{authPort}}/auth/refresh-token",
+									"raw": "{{baseUrl}}/api/auth/refresh-token",
 									"host": [
 										"{{baseUrl}}"
 									],
-									"port": "{{authPort}}",
 									"path": [
+										"api",
 										"auth",
 										"refresh-token"
 									]
@@ -339,13 +339,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}:{{authPort}}/user",
+									"raw": "{{baseUrl}}/api/users",
 									"host": [
 										"{{baseUrl}}"
 									],
-									"port": "{{authPort}}",
 									"path": [
-										"user"
+										"api",
+										"users"
 									]
 								}
 							},
@@ -397,14 +397,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}:{{authPort}}/users/a6c3622a-2a28-481b-840e-77a3281cb4b3",
+									"raw": "{{baseUrl}}/api/users/f5cb3991-f07d-49b9-93d0-039c580fe23c",
 									"host": [
 										"{{baseUrl}}"
 									],
-									"port": "{{authPort}}",
 									"path": [
+										"api",
 										"users",
-										"a6c3622a-2a28-481b-840e-77a3281cb4b3"
+										"f5cb3991-f07d-49b9-93d0-039c580fe23c"
 									]
 								}
 							},
@@ -424,7 +424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"85c85f42-df25-48b1-9a46-34de78b00c79\",\n    \"type\": \"REGISTRATION\",\n    \"obj\": \"{\\\"firstName\\\": \\\"Kristijan\\\", \\\"lastName\\\": \\\"Jurkovic\\\",\\\"email\\\": \\\"kjurkovic85+14@gmail.com\\\"}\"\n}",
+							"raw": "{\n    \"userId\": \"f5cb3991-f07d-49b9-93d0-039c580fe23c\",\n    \"type\": \"REGISTRATION\",\n    \"obj\": \"{\\\"firstName\\\": \\\"Kristijan\\\", \\\"lastName\\\": \\\"Jurkovic\\\",\\\"email\\\": \\\"kjurkovic85+14@gmail.com\\\"}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -432,12 +432,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{auditPort}}/logs",
+							"raw": "{{baseUrl}}/api/logs",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{auditPort}}",
 							"path": [
+								"api",
 								"logs"
 							]
 						}
@@ -460,14 +460,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}:{{auditPort}}/audit/a6c3622a-2a28-481b-840e-77a3281cb4b3",
+							"raw": "{{baseUrl}}/api/audit/f5cb3991-f07d-49b9-93d0-039c580fe23c",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{auditPort}}",
 							"path": [
+								"api",
 								"audit",
-								"a6c3622a-2a28-481b-840e-77a3281cb4b3"
+								"f5cb3991-f07d-49b9-93d0-039c580fe23c"
 							]
 						}
 					},
@@ -493,12 +493,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{notificationPort}}/notification",
+							"raw": "{{baseUrl}}/api/notification",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{notificationPort}}",
 							"path": [
+								"api",
 								"notification"
 							]
 						}
@@ -527,7 +527,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Test\",\n    \"workspaceId\": \"9e7433cc-36cb-4fb2-8e5e-369492d48645\",\n    \"fields\": [\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"ime\"\n        }\n    ],\n    \"isPublic\": true\n}",
+							"raw": "{\n    \"name\": \"Test\",\n    \"workspaceId\": \"51a4a359-ff5e-45e6-9333-27ef594f594f\",\n    \"fields\": [\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"ime\"\n        },\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"prezime\"\n        },\n        {\n            \"type\": \"int\",\n            \"validation\": \"[0-9]{1,2}\",\n            \"label\": \"godine\"\n        }\n    ],\n    \"isPublic\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,13 +535,51 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{metaPort}}/meta",
+							"raw": "{{baseUrl}}/api/meta",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{metaPort}}",
 							"path": [
+								"api",
 								"meta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete meta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"workspaceId\": \"51a4a359-ff5e-45e6-9333-27ef594f594f\",\n    \"fields\": [\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"ime\"\n        },\n        {\n            \"type\": \"text\",\n            \"validation\": \"[A-Za-z]+\",\n            \"label\": \"prezime\"\n        },\n        {\n            \"type\": \"int\",\n            \"validation\": \"[0-9]{1,2}\",\n            \"label\": \"godine\"\n        }\n    ],\n    \"isPublic\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/meta/201d7596-57f0-4fe7-8b20-45be07273e19",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"meta",
+								"201d7596-57f0-4fe7-8b20-45be07273e19"
 							]
 						}
 					},
@@ -563,15 +601,45 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}:{{metaPort}}/meta/user/733c4cfb-c122-4116-8bf6-d2fb78f8d9ed",
+							"raw": "{{baseUrl}}/api/meta/user/f5cb3991-f07d-49b9-93d0-039c580fe23c",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{metaPort}}",
 							"path": [
+								"api",
 								"meta",
 								"user",
-								"733c4cfb-c122-4116-8bf6-d2fb78f8d9ed"
+								"f5cb3991-f07d-49b9-93d0-039c580fe23c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workspace meta models",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/meta/work/51a4a359-ff5e-45e6-9333-27ef594f594f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"meta",
+								"work",
+								"51a4a359-ff5e-45e6-9333-27ef594f594f"
 							]
 						}
 					},
@@ -593,14 +661,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}:{{metaPort}}/meta/385019ed-e933-4f59-bec2-03af80229ae1",
+							"raw": "{{baseUrl}}/api/meta/9e3c7b08-3a8e-477a-ae26-cf29646583c8",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{metaPort}}",
 							"path": [
+								"api",
 								"meta",
-								"385019ed-e933-4f59-bec2-03af80229ae1"
+								"9e3c7b08-3a8e-477a-ae26-cf29646583c8"
 							]
 						}
 					},
@@ -650,7 +718,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": {\n        \"ime\": \"Kristijan1\"\n    }\n}",
+							"raw": "{\n    \"content\": {\n        \"ime\": \"Kristijan\",\n        \"prezime\": \"Jurkovic\",\n        \"godine\": \"37\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -658,14 +726,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}:{{dataPort}}/data/385019ed-e933-4f59-bec2-03af80229ae1",
+							"raw": "{{baseUrl}}/api/data/9e3c7b08-3a8e-477a-ae26-cf29646583c8",
 							"host": [
 								"{{baseUrl}}"
 							],
-							"port": "{{dataPort}}",
 							"path": [
+								"api",
 								"data",
-								"385019ed-e933-4f59-bec2-03af80229ae1"
+								"9e3c7b08-3a8e-477a-ae26-cf29646583c8"
 							]
 						}
 					},
