@@ -2,7 +2,6 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"regexp"
 
@@ -81,16 +80,15 @@ func (service *DataService) validateContent(content map[string]interface{}, meta
 
 func (service *DataService) validateDataField(key string, element interface{}, meta *wrappers.Meta) bool {
 
-	result := false
+	result := true
 
 	for _, metaField := range meta.Fields {
 		if metaField.Label == key {
-			fmt.Println(metaField.Validation)
 			if metaField.Validation != "" {
 				match, _ := regexp.MatchString(metaField.Validation, element.(string))
-				result = match
+				result = result && match
 			} else {
-				result = true
+				result = result && true
 			}
 			break
 		}
