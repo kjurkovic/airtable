@@ -17,6 +17,11 @@ type AuditClient struct {
 	Log     Log
 }
 
+type NotificationClient struct {
+	BaseUrl string
+	Log     Log
+}
+
 var (
 	client = &http.Client{
 		Transport: &http.Transport{
@@ -25,6 +30,32 @@ var (
 		},
 	}
 )
+
+func (service *NotificationClient) SendEmail(to string, email string, subject string, text string) {
+	message := &Message{
+		To:      to,
+		Email:   email,
+		Subject: subject,
+		Text:    text,
+	}
+
+	var buf bytes.Buffer
+	err := json.NewEncoder(&buf).Encode(message)
+
+	if err != nil {
+		service.Log(err)
+		return
+	}
+
+	resp, err := client.Post(fmt.Sprintf("%s/%s", service.BaseUrl, "notification"), "application/json", &buf)
+
+	if err != nil {
+		service.Log(err)
+		return
+	}
+
+	resp.Body.Close()
+}
 
 func (service *AuditClient) WriteLog(userId uuid.UUID, obj string, auditType AuditType) {
 	event := &Event{

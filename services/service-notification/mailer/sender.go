@@ -23,9 +23,7 @@ func (sender *Sender) Mail(message *models.Message) {
 	htmlContent := message.Text
 	body := mail.NewSingleEmail(from, message.Subject, recipient, plainTextContent, htmlContent)
 	client := sendgrid.NewSendClient(sender.Config.Key)
-	_, err := client.Send(body)
+	resp, err := client.Send(body)
 
-	if err != nil {
-		log.Println(err)
-	}
+	log.Println(resp, err)
 }

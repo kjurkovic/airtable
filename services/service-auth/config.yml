@@ -22,3 +22,4 @@ database:
     
 services:
   audit: ${AUDIT_SERVICE_HOST}
+  notification: ${NOTIFICATION_SERVICE_HOST}
