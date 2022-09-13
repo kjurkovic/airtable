@@ -1,19 +1,13 @@
 package main
 
 import (
-	"path/filepath"
-	"runtime"
-
 	"github.com/kjurkovic/airtable/service/workspace/loaders"
-)
-
-var (
-	_, b, _, _  = runtime.Caller(0)
-	projectRoot = filepath.Dir(b)
+	"github.com/kjurkovic/airtable/service/workspace/wrappers"
 )
 
 func main() {
 	initializers := []loaders.Loader{
+		&wrappers.AuditServiceInitializer{},
 		&loaders.Database{},
 		&loaders.App{},
 	}

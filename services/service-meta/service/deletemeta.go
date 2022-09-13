@@ -8,6 +8,7 @@ import (
 	"github.com/kjurkovic/airtable/service/meta/datastore"
 	"github.com/kjurkovic/airtable/service/meta/middleware"
 	"github.com/kjurkovic/airtable/service/meta/models"
+	"github.com/kjurkovic/airtable/service/meta/wrappers"
 )
 
 func (service *MetaService) Delete(rw http.ResponseWriter, r *http.Request) {
@@ -24,4 +25,6 @@ func (service *MetaService) Delete(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	rw.WriteHeader(http.StatusAccepted)
+
+	wrappers.Audit.SendEvent(claims.UserId, id.String(), wrappers.MetaDeleted)
 }

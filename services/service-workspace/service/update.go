@@ -8,6 +8,8 @@ import (
 	"github.com/kjurkovic/airtable/service/workspace/datastore"
 	"github.com/kjurkovic/airtable/service/workspace/middleware"
 	"github.com/kjurkovic/airtable/service/workspace/models"
+	"github.com/kjurkovic/airtable/service/workspace/util"
+	"github.com/kjurkovic/airtable/service/workspace/wrappers"
 	"gorm.io/gorm"
 )
 
@@ -35,5 +37,8 @@ func (service *WorkspaceService) UpdateWorkspace(rw http.ResponseWriter, r *http
 	if err != nil {
 		http.Error(rw, "Serialization error", http.StatusInternalServerError)
 		return
+	} else {
+		auditObj, _ := util.ToJson(response)
+		wrappers.Audit.SendEvent(claims.UserId, auditObj, wrappers.WorkspaceModified)
 	}
 }

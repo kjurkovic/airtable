@@ -22,3 +22,4 @@ database:
     
 services:
   meta: ${META_SERVICE_HOST}
+  audit: ${AUDIT_SERVICE_HOST}

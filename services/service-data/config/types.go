@@ -45,5 +45,6 @@ type Timeout struct {
 }
 
 type Services struct {
-	Meta string `yaml:"meta"`
+	Meta  string `yaml:"meta"`
+	Audit string `yaml:"audit"`
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/kjurkovic/airtable/service/workspace/datastore"
 	"github.com/kjurkovic/airtable/service/workspace/middleware"
 	"github.com/kjurkovic/airtable/service/workspace/models"
+	"github.com/kjurkovic/airtable/service/workspace/wrappers"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
@@ -28,4 +29,6 @@ func (service *WorkspaceService) DeleteWorkspace(rw http.ResponseWriter, r *http
 		return
 	}
 	rw.WriteHeader(http.StatusNoContent)
+
+	wrappers.Audit.SendEvent(claims.UserId, id.String(), wrappers.WorkspaceDeleted)
 }
