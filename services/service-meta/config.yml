@@ -20,3 +20,5 @@ database:
   logger:
     level: 0 # 0: debug, 1: info, 2: warning, 3: error, 4: none, 5: unknown
     
+services:
+  audit: ${AUDIT_SERVICE_HOST}

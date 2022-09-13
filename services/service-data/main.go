@@ -9,6 +9,7 @@ func main() {
 
 	initializers := []loaders.Loader{
 		&wrappers.MetaServiceInitializer{},
+		&wrappers.AuditServiceInitializer{},
 		&loaders.Database{},
 		&loaders.App{},
 	}

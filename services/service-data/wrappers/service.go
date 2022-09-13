@@ -1,6 +1,8 @@
 package wrappers
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -11,6 +13,11 @@ import (
 type Log func(error)
 
 type MetaClient struct {
+	BaseUrl string
+	Log     Log
+}
+
+type AuditClient struct {
 	BaseUrl string
 	Log     Log
 }
@@ -43,4 +50,31 @@ func (service *MetaClient) Get(metaId uuid.UUID) (*Meta, error) {
 	resp.Body.Close()
 
 	return meta, nil
+}
+
+func (service *AuditClient) WriteLog(userId uuid.UUID, obj string, auditType AuditType) {
+	event := &Event{
+		UserId:      userId,
+		AuditObject: obj,
+		Type:        auditType,
+	}
+
+	var buf bytes.Buffer
+	err := json.NewEncoder(&buf).Encode(event)
+
+	if err != nil {
+		service.Log(err)
+		return
+	}
+
+	resp, err := client.Post(fmt.Sprintf("%s/%s", service.BaseUrl, "logs"), "application/json", &buf)
+
+	fmt.Print("Sent request to audit:", resp, err)
+
+	if err != nil {
+		service.Log(err)
+		return
+	}
+
+	resp.Body.Close()
 }

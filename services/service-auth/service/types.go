@@ -54,6 +54,7 @@ func (service *AuthService) generateAuthResponse(user *models.User, rw http.Resp
 	}
 
 	auditObj, err := util.ToJson(user)
+
 	if err != nil {
 		auditObj = user.Id.String()
 	}

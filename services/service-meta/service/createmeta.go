@@ -6,6 +6,8 @@ import (
 	"github.com/kjurkovic/airtable/service/meta/datastore"
 	"github.com/kjurkovic/airtable/service/meta/middleware"
 	"github.com/kjurkovic/airtable/service/meta/models"
+	"github.com/kjurkovic/airtable/service/meta/util"
+	"github.com/kjurkovic/airtable/service/meta/wrappers"
 )
 
 func (service *MetaService) Create(rw http.ResponseWriter, r *http.Request) {
@@ -30,4 +32,7 @@ func (service *MetaService) Create(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	rw.WriteHeader(http.StatusCreated)
+
+	auditObj, _ := util.ToJson(meta)
+	wrappers.Audit.SendEvent(claims.UserId, auditObj, wrappers.MetaCreated)
 }
