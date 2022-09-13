@@ -8,6 +8,7 @@ import (
 	"github.com/kjurkovic/airtable/service/auth/datastore"
 	"github.com/kjurkovic/airtable/service/auth/models"
 	"github.com/kjurkovic/airtable/service/auth/util"
+	"github.com/kjurkovic/airtable/service/auth/wrappers"
 	"gorm.io/gorm"
 )
 
@@ -36,6 +37,8 @@ func (service *AuthService) Register(rw http.ResponseWriter, r *http.Request) {
 	}
 	response := service.generateAuthResponse(user, rw)
 	response.Serialize(rw)
+
+	wrappers.Notification.SendEmail(request.FirstName, request.Email, "Welcome to Airtable!", fmt.Sprintf("Hi %s,\n Welcome to Airtable!", request.FirstName))
 }
 
 func (service *AuthService) validateRegisterRequest(rw *http.ResponseWriter, r *http.Request) (*models.RegisterRequest, error) {

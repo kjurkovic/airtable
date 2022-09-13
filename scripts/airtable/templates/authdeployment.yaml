@@ -79,6 +79,8 @@ spec:
                   key: value
             - name: AUDIT_SERVICE_HOST
               value: http://audit-service
+            - name: NOTIFICATION_SERVICE_HOST
+              value: http://notification-service
           ports:
             - name: auth-http
               containerPort: 9999
